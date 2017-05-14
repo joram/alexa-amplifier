@@ -1,0 +1,6 @@
+ListPeopleInHouse who is in the house
+ListPeopleInHouse who is home
+YesIntent yes
+YesIntent sure
+AnswerIntent {first} {second} {third}
+AnswerIntent {first} {second} and {third}

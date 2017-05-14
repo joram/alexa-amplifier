@@ -1,2 +1,7 @@
 settings.py
 .idea*
+.env
+people.json
+*.pyc
+src*
+.venv*

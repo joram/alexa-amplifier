@@ -1,0 +1,27 @@
+{
+  "intents": [
+    {
+      "intent": "ListPeopleInHouse"
+    },
+    {
+      "intent": "YesIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "first",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "second",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "third",
+          "type": "AMAZON.NUMBER"
+        }
+      ],
+      "intent": "AnswerIntent"
+    }
+  ]
+}

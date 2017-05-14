@@ -1,20 +1,37 @@
 import logging
-
 from random import randint
-
 from flask import Flask, render_template
-
 from flask_ask import Ask, statement, question, session
+import os
+import wifi
 
 app = Flask(__name__)
 ask = Ask(app, "/")
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
-
+with open(".env") as f:
+  for line in f.readlines():
+    parts = line.split("=")
+    key = parts[0]
+    val = parts[1].replace("\n", "")
+    os.environ[key] = val
 
 @ask.launch
 def new_game():
     welcome_msg = render_template('welcome')
     return question(welcome_msg)
+
+
+@ask.intent("ListPeopleInHouse")
+def list_people_in_house():
+  people = wifi.people_online()
+  print "-"*10, people, "-"*10
+  if len(people) == 0:
+    return statement("nobody is home.")
+  if len(people) == 1:
+    return statement("only {name} is home.".format(name=people[0]))
+  msg = ", ".join(people[:len(people)-1])
+  msg = "{commas} and {last} are home.".format(commas=msg, last=people[-1])
+  return statement(msg)
 
 
 @ask.intent("YesIntent")
@@ -36,4 +53,4 @@ def answer(first, second, third):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=7242)
+    app.run(debug=True, port=7242, host="0.0.0.0")
